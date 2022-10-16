@@ -1,0 +1,417 @@
+pre-requites
+    --> Cryptography
+    --> Distributed Computed
+    --> Game Theory
+
+
+
+Block-chain :
+    peer to peer
+    everything here is a transaction
+    transaction are noted in the ledger(like databae)
+    ledger is Immutable(block-chain).
+
+
+storing data in block chain :
+    consider a block A contains Some data
+    That data got hashed using one of the algorithms like MD5, SHA-256, SHA-512.
+    Hashing will produced  key (ex :K1)
+    Produces different key for different data
+    How long may be the data is but the Key length is same
+
+    consider a block B.
+    block B contains Some data, along with there is the key which is produced in block A
+
+    if the some change sthe data in block A it will produce the new key (ex : _k1)
+    _k1 key different from the key stored in the block B
+    This is how we can find, someone change the data in block A
+
+
+    Lyk this the Data's got store in the block of chains(block chain)
+
+
+
+cryptography :
+    peer to peer is awesome
+    but there is some concern, which we can over come with cryptography. The concerns are 
+        1.Confidentiality
+        2.Integrity
+        3.Non repudiation
+        4.Authentication
+
+    Confidentiality :
+        consider if A send a msg to B. other than A and B, no one wants to see the msg.
+
+    Integrity :
+        Not allowing any one the network to modify the msg.
+
+    Non repudiation :
+        if A sends a msg to B, but after sometimes A can say that, i didn't send the msg.
+        So we should have the proof that A only sends that msg.
+
+    Authentication :
+        no one should send the msg in the name of others
+
+
+    Here comes the cryptography
+    cryptography is a two word
+    crypt -->  secret/hidding
+    graphy --> writing 
+
+    cryptography means writing the msg which only read by the reciever.
+
+    This can be achieved by encrypting and decrypting msg
+
+    A should encrypt the msg and be should decrypt the msg.
+    encryption produces cipher text, which is unreadable.. we should decrypt the msg to read.
+
+    These encryption and decryption are done using keys
+
+Types of Cryptography :
+
+    Based on the key there is Two types of cryptography
+        1.Symmetric key Cryptograpy.
+        2.Asymmetric key Cryptography
+
+
+ 1.Symmetric key Cryptograpy :
+    consider A wants to send a message to B
+    A encrypt the msg with his own key K1 and sends a msg to B.
+    B wants to decrypt the Msg with the Key K1 only.
+    So B should have the Key K1.
+    A should have the b's Key in order to decrypt the msg of B
+
+    consider another User C so,
+    A should have keys of B and C.
+
+    If the no of user increases the no of key also gets increased.
+
+    This is the disadvantage of Symmetric key.
+
+
+2.Asymmetric key Cryptography || Public key Cryptography:
+
+    In this method, Every User(Node) will have an two Keys.
+    Private Key and Public key.
+    Public key is accessible to everyone.
+
+    If A wants to send a msg, A encrypt yhe msg with the B's Public Key.
+    B uses its Private key to decrypt the msg.
+
+    Here the Confidentiality of the msg gets stornger
+
+Block chain uses Asymmetric key Cryptography || Public key Cryptography
+
+Digital Signature :
+    In the above we achieved the Confidentiality.
+    BUt what if A says I didn't send that msg.
+    what about Authentication part?
+
+    To make the Authentication. we are going to add the Digital Signature to that msg.
+    
+    If A sends a msg to B,
+    At first A encrypt the msg with A's Private key
+    And then again encrypt the msg with B's Public key
+    And the Sends the msg to B.
+
+    AT B side,
+    first we have to decrypt the msg with B's Private key
+    And then again decrypt the msg with A's Public key.
+
+
+    IF we can able to decrypt to decrypt the A's Public key means,
+    that msg has to encrypt with A's Private key.
+    Private is only accessible by its owner.
+    So this msg was sent by A only.
+
+    This is how we add Digital Signature to the Msg.
+
+
+Nodes in Block chain :
+    A node can a computer or a mobile phone.
+
+    Types of node:
+        Full Node
+        Partial node
+
+        Full Node :
+            Computer can be a full node.
+            if the computer has the complete blockchain 
+            Then it can be a full node.
+            As per 2018, the size of blockchain is 188GB
+
+            Full node verify the blocks before it add the block to the blockchain
+            Full node only large storage.
+
+            Miners :
+             Miners should be a full node, but full node need not to be a miner.
+             In furture, we will about miner in details.
+             we need large compuetaional power to be a minor.
+             large number of cpu's and gpu's we need.
+             we earn some incentives in minor node which is not in full node.
+
+
+        Partial Node : 
+            it has some part of blockchain to make transactions kind of thing.
+            It can be use for wallet purpose.       
+
+
+Hashing :
+    lets see the terms about
+        Hashing,
+        Hash Function,
+        Hash value,
+
+    Hash Function Takes n length of arbitary data as input 
+    And return the Fixed length numberical Data which is called as Hash value.
+
+    Based on the Hash functions(Like message digest,SHA ) that fixed length can be differ.
+
+    If we give the same data as input for n number of tyms, it will return the same hash value
+    we can't get the input Data from the hash Value.
+    Hashing is not encrypting.
+    So reversing is not possible.
+
+
+    Hash Function are algorithms
+    There are several algorithms some are
+        MD(message digest)
+            MD1,MD2,MD3,MD6...
+
+        SHA(Secure Hash Algorithms)
+            Most using one.
+             SHA1, SHA2, ShA3,....
+             In blockchain we use SHA2-256, SHA2-512
+             256 and 512 are output size.
+             If we use SHA2-256, the o/p will be 256bits.
+             If we use SHA2-512, the o/p will be 512bits.
+
+
+merkle tree:
+    Every block has n transactions and hash value.
+    we can't store n hash values of n transactions.
+
+    so at first we create 
+        H1,H2,H3.....H10 from 10 transactions
+        and then we can combine those transactions, like
+        H12,H34,H56,...,H910 ....since its an odd number
+        then H1234,H5678,H910910 we are repeating the last 9 and 10
+        .
+        .
+        .
+        H12345678910910910910 we store this single hash value.
+
+
+        this forms an merkle tree.
+
+
+Block chain Architecture :
+    There are different types of block chain
+    Public Block chain is one of them.
+    Bitcoin is example for public blockchain.
+    In Bitcoin blockchain, the Data store in the block may be,
+        from
+        to
+        Money info
+
+    In addition to that, there is Block header in Every block
+    Block Header contains fields like
+        TimeStamp
+        Version - blockchain Version
+        merkle root --> final value of the merkle tree.
+        Proof of work(pow)
+            Pow algorithms needs two fields.
+                Difficulty Target.
+                Nonce
+        Previous Hash Value
+
+        second block will have the hash value of first block.
+        third block will have the hash value of second block.
+
+Immutiblity in Block chain:
+
+    If we change some data in block to it will change the hash value.
+    so we have to change the hash value in third block.
+    that will change the hash value of the third block
+    and this process continuous still the last block.
+
+    Still it Difficult process, it is not impossible
+    Then How block chain in Immutable?
+
+    There the POW comes into the picture
+    Whenever we change the block or to add the new block.
+    Block has to be validated.
+
+    validation means some process to do before changing or adding the new block.
+    That process takes atleast 10min for one block.
+
+    And every full node have a copy of the block chain.
+    so if we add/change a block, everyone will come in a conseus.
+
+    conseus Algorithms
+    50% of users should accept thT.
+
+    To change Block:
+        -need super computer
+        - More time
+        _50% majority of the blockchain network which is impossible.
+
+
+Genesis Block:
+    every block has the hash value of the  Previous block.
+    But the first block has the hash value of Zero.
+    first block of the block chain is called as Genesis Block.
+
+
+Types of blockchain
+    Public blockchain :
+        Open
+        Anyone can be a part of it.
+
+    Private blockchain:
+        Specially for single company.
+        no of nodes will controlled and we know the details about every node.
+
+    Federated blockchain :
+        group of people/ companies create the new block chain.
+        everyone in the block is known entities.
+
+    Apart from these there are two more type of block chain.
+        Permissioned Blockchain
+        Permissionless Blockchain
+
+
+    Public Blockchain only need pow. In other types, the All the entities are known one
+    so we don't need POW
+    so Private and Federated block chain is fast.
+
+
+
+What is consensus?
+    consider there are five nodes in a blockchain.
+    if we want to add the new block. any one of the existing block wants to add the block in the blockchain.
+    What if that block is a malicious?
+
+    That's where we have to follow consensus Algorithm.
+
+    consensus algorithms defines who hast to add the new block to the blockchain.
+
+    Based on the Permissioned blockchain or Permissionless Blockchain
+    
+    There are multiple consensus Algorithm are available.
+
+    The most famous one is POW(BitCoin uses) 
+
+    PoW(proof of work) means :
+        All the nodes in the block in the blockchain
+        Spends some calculating power to solve puzzle kind of thing.
+        Whoever wins the puzzle they will add the block.
+        In return they will get some coins.
+
+        They spent some compuetaional power, so we can trust them.
+
+    PoS(Proof of Stake in ethereum wolrd) :
+        need of PoS in Pow wolrd?
+        PoW need lots of computing power
+        In PoS we don't need that amount of power.
+
+        In Pos 
+            if we want to add the new block into the block chain we have to spend 
+            some stake/Invest some amout to apply to be the adder of the new block.
+
+    There are some other consensus algorithm to :
+        Proof of Elapsed Time(PoET by INTEL)
+        Proof of Deposit(PoD)
+        Proof of Capacity(PoC)
+
+
+What is Ethereum?
+    Vitalik Buterin is the Inventer of Ethereum.
+    Ethereum uses Solidity as a programming language.
+    Ethereum is a platform where we can Create and  Run decentralized Apps (Dapps)
+    To run Softtware there is EVM(Ethereum Virtual Machine) in Ethereum world
+    Ether is crypto Currency of Ethereum.
+    There is some concept called gas.
+
+
+What is  Bitcoin?
+    BitCoin is a crypocurrency Blockchain.
+    It is peer to peer electronic cash system.
+    It is only for Cryptocurrency.
+
+What is smart Contracts?
+    Smart Contracts are lines of code that executes on ethereum based on the contracts.
+
+
+Drawbacks of public Blockchain
+        It is complex to learn... In general concept of BC is complex.
+        Public Blockchain is Slow.(coz of proof of work)
+        wastage of resource(we need lot of power to do the PoW)
+        
+        Since it is public Bc.. every one can see the transaction.
+        Eventhought it is Immutable.
+        Consider if naveen snd 10bitcoin to Rahul..
+        everyone knows there is a transaction
+        but from and to is refered to as Address.
+
+        Security/Privacy.
+        51% Attack ---> BC Hacked.
+
+
+What is Hyperledger?
+    Definition by documentation :
+        Hyperledger is an open source collaborative effort created to advance cross-industry blockchain technologies.
+        It is a global collaboration hosted by The Linux Foundation,
+        includin leaders in finance,banking,Internet of Things, supply chains,
+        manufacturing and Technology.
+
+    To Know Hyperledger better, Lets see what Hyperledger is not
+       Not  an Blockchain
+       Not a company
+       Not a Cryptocurrency 
+
+    It is an Project
+
+    Hyperledger is For B2B.
+
+    Hyperledger has some Frameworks and tools
+
+    Hyperledger Frameworks are :
+        Iroha
+        Sawtooth
+        Fabric
+        Indy
+        Burrow
+        
+        Among these Sawtooth and Fabric are Famous Hyperledger Frameworks
+
+    Hyperledger Tools are :
+        Hyperledger Composer
+        Hyperledger Cello
+        Hyperledger Quit
+        Hyperledger Explorer
+
+    With the help of these Frameworks and tools we can build Permissioned/Private Blockchain.
+    we can use them for public BC
+
+
+Connecting with the entherum network
+create an environment to write smart contracts
+To made transaction we need to pay som gas fees
+For learning purpose use  test network.
+to make the Browser as a Distributed app use meta mask extension
+https://www.youtube.com/watch?v=WPPni-pufok&list=PLsyeobzWxl7oY6tZmnZ5S7yTDxyu4zDW-&index=19
+
+After setup the browser using the metamask.
+Use Remix Ide  to write the smart contracts 
+
+
+
+
+
+
+
+
+
+
+
